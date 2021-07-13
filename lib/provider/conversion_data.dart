@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:unit_converter/provider/helpers/conversion_list.dart';
+import 'package:unit_converter/view/unit_screen.dart';
 
-class Utils {
-  List<Tab> unitMenuList = [
-    Tab(
-      icon: Icon(FontAwesomeIcons.calculator),
-      text: 'Hesap Makinesi',
-    ),
+class ConversionData extends ConversionList with ChangeNotifier {
+  List<Tab> unitTopBarList = [
     Tab(
       icon: Icon(FontAwesomeIcons.rulerHorizontal),
       text: 'Uzunluk',
@@ -32,4 +30,17 @@ class Utils {
       text: 'Pişirme',
     ),
   ];
+
+  List<UnitScreen> unitScreenList() {
+    List<UnitScreen> unitScreenItems = [
+      UnitScreen(conversion: length),
+      UnitScreen(conversion: area),
+      UnitScreen(conversion: weight),
+      UnitScreen(conversion: volume),
+      UnitScreen(conversion: temperature),
+      UnitScreen(conversion: cooking),
+    ];
+
+    return unitScreenItems;
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:unit_converter/provider/utils.dart';
+import 'package:unit_converter/provider/conversion_data.dart';
 import 'package:unit_converter/view/home_screen.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class UnitConverter extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(
-          create: (context) => Utils(),
+          create: (context) => ConversionData(),
         ),
       ],
       child: MaterialApp(

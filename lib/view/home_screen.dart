@@ -1,7 +1,7 @@
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:unit_converter/provider/utils.dart';
+import 'package:unit_converter/provider/conversion_data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,10 +9,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<Utils>(
-        builder: (context, utilsData, child) {
+      body: Consumer<ConversionData>(
+        builder: (context, conversionData, child) {
           return DefaultTabController(
-            length: utilsData.unitMenuList.length,
+            length: conversionData.unitTopBarList.length,
             child: Column(
               children: <Widget>[
                 Padding(
@@ -27,20 +27,12 @@ class HomeScreen extends StatelessWidget {
                     borderWidth: 1,
                     unselectedBorderColor: Colors.blue[600]!,
                     radius: 100,
-                    tabs: utilsData.unitMenuList,
+                    tabs: conversionData.unitTopBarList,
                   ),
                 ),
                 Expanded(
                   child: TabBarView(
-                    children: [
-                      Text('fdsfsdfsdf'),
-                      Text('fdsfsdfsdf'),
-                      Text('fdsfsdfsdf'),
-                      Text('fdsfsdfsdf'),
-                      Text('fdsfsdfsdf'),
-                      Text('fdsfsdfsdf'),
-                      Text('fdsfsdfsdf'),
-                    ],
+                    children: conversionData.unitScreenList(),
                   ),
                 ),
               ],

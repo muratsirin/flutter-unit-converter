@@ -5,10 +5,12 @@ import 'package:unit_converter/provider/conversion_data.dart';
 class UnitList extends StatelessWidget {
   final List<Conversion> conversion;
   final ConversionData conversionData;
+  final String selectedItem;
   const UnitList({
     Key? key,
     required this.conversion,
     required this.conversionData,
+    required this.selectedItem,
   }) : super(key: key);
 
   @override
@@ -28,14 +30,15 @@ class UnitList extends StatelessWidget {
               fontSize: 20,
             ),
           ),
-          // trailing: Text(
-          //   conversionData.result(
-          //     unitName: conversionItem.unitName,
-          //   ),
-          //   style: TextStyle(
-          //     fontSize: 20,
-          //   ),
-          // ),
+          trailing: Text(
+            conversionData.result(
+              unitName: conversionItem.unitName,
+              selectedItem: selectedItem,
+            ),
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          ),
         );
       },
       separatorBuilder: (context, index) {

@@ -30,13 +30,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: GestureDetector(
-                    child: TabBarView(
-                      children: conversionData.unitScreenList(),
-                    ),
-                    // onTap: () {
-                    //   conversionData.printIndex(controller.index);
-                    // },
+                  child: TabBarView(
+                    children: conversionData.unitScreenList(),
                   ),
                 ),
               ],

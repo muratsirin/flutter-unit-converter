@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:unit_converter/model/conversion.dart';
+import 'package:unit_converter/provider/helpers/conversion_button_data.dart';
 import 'package:unit_converter/provider/helpers/conversion_list.dart';
 import 'package:unit_converter/view/unit_screen.dart';
 
-class ConversionData extends ConversionList with ChangeNotifier {
+class ConversionData extends ConversionButtonData with ConversionList {
+  String resultValue = '';
+
   Map<String, String> selectedItemLength = {
     'Item': 'Metre',
     'ItemAbbreviation': 'm'
@@ -61,104 +64,101 @@ class ConversionData extends ConversionList with ChangeNotifier {
     List<UnitScreen> unitScreenItems = [
       UnitScreen(
         conversion: length,
-        selectedItem: selectedItemLength['Item'],
-        selectedItemAbbreviation: selectedItemLength['ItemAbbreviation'],
+        selectedItem: selectedItemLength['Item']!,
+        selectedItemAbbreviation: selectedItemLength['ItemAbbreviation']!,
       ),
       UnitScreen(
         conversion: area,
-        selectedItem: selectedItemArea['Item'],
-        selectedItemAbbreviation: selectedItemArea['ItemAbbreviation'],
+        selectedItem: selectedItemArea['Item']!,
+        selectedItemAbbreviation: selectedItemArea['ItemAbbreviation']!,
       ),
       UnitScreen(
         conversion: weight,
-        selectedItem: selectedItemWeight['Item'],
-        selectedItemAbbreviation: selectedItemWeight['ItemAbbreviation'],
+        selectedItem: selectedItemWeight['Item']!,
+        selectedItemAbbreviation: selectedItemWeight['ItemAbbreviation']!,
       ),
       UnitScreen(
         conversion: volume,
-        selectedItem: selectedItemVolume['Item'],
-        selectedItemAbbreviation: selectedItemVolume['ItemAbbreviation'],
+        selectedItem: selectedItemVolume['Item']!,
+        selectedItemAbbreviation: selectedItemVolume['ItemAbbreviation']!,
       ),
       UnitScreen(
         conversion: temperature,
-        selectedItem: selectedItemTemperature['Item'],
-        selectedItemAbbreviation: selectedItemTemperature['ItemAbbreviation'],
+        selectedItem: selectedItemTemperature['Item']!,
+        selectedItemAbbreviation: selectedItemTemperature['ItemAbbreviation']!,
       ),
       UnitScreen(
         conversion: cooking,
-        selectedItem: selectedItemCooking['Item'],
-        selectedItemAbbreviation: selectedItemCooking['ItemAbbreviation'],
+        selectedItem: selectedItemCooking['Item']!,
+        selectedItemAbbreviation: selectedItemCooking['ItemAbbreviation']!,
       ),
     ];
 
     return unitScreenItems;
   }
 
-  void printIndex(int index) {
-    unitTopBarList.map((Tab tab) {
-      print(tab.text);
-    }).toList();
-    print(index);
-  }
-
-  void setSelectedItem(
-      {required String unitName,
-      required String unitAbbreviation,
-      required List<Conversion> conversion}) {
+  void setSelectedItem({
+    required String unitName,
+    required String unitAbbreviation,
+    required List<Conversion> conversion,
+  }) {
     if (conversion == length) {
       selectedItemLength['Item'] = unitName;
       selectedItemLength['ItemAbbreviation'] = unitAbbreviation;
     } else if (conversion == area) {
-      selectedItemArea = unitName;
+      selectedItemArea['Item'] = unitName;
+      selectedItemArea['ItemAbbreviation'] = unitAbbreviation;
+    } else if (conversion == weight) {
+      selectedItemWeight['Item'] = unitName;
+      selectedItemWeight['ItemAbbreviation'] = unitAbbreviation;
+    } else if (conversion == volume) {
+      selectedItemVolume['Item'] = unitName;
+      selectedItemVolume['ItemAbbreviation'] = unitAbbreviation;
+    } else if (conversion == temperature) {
+      selectedItemTemperature['Item'] = unitName;
+      selectedItemTemperature['ItemAbbreviation'] = unitAbbreviation;
+    } else if (conversion == cooking) {
+      selectedItemCooking['Item'] = unitName;
+      selectedItemCooking['ItemAbbreviation'] = unitAbbreviation;
     }
-    print(selectedItemLength);
+
     notifyListeners();
   }
 
-  // void updateSelectedItem2({required List<Conversion> conversion}) {
-  //   if (conversion == length) {
-  //     selectedItem = length.first.unitName;
-  //   } else if (conversion == area) {
-  //     selectedItem = area.first.unitName;
-  //   } else if (conversion == weight) {
-  //     selectedItem = weight.first.unitName;
-  //   } else if (conversion == volume) {
-  //     selectedItem = volume.first.unitName;
-  //   } else if (conversion == temperature) {
-  //     selectedItem = temperature.first.unitName;
-  //   } else if (conversion == cooking) {
-  //     selectedItem = cooking.first.unitName;
-  //   }
-  // }
+  String result({required String unitName, required String selectedItem}) {
+    try {
+      double inputValue;
 
-  // void updateSelectedItem({required int index}) {
-  //   switch (index) {
-  //     case 0:
-  //       selectedItem = length.first.unitName;
-  //       selectedItemAbbreviation = length.first.unitAbbreviation;
-  //       break;
-  //     case 1:
-  //       selectedItem = area.first.unitName;
-  //       selectedItemAbbreviation = area.first.unitAbbreviation;
-  //       break;
-  //     case 2:
-  //       selectedItem = weight.first.unitName;
-  //       selectedItemAbbreviation = weight.first.unitAbbreviation;
-  //       break;
-  //     case 3:
-  //       selectedItem = volume.first.unitName;
-  //       selectedItemAbbreviation = volume.first.unitAbbreviation;
-  //       break;
-  //     case 4:
-  //       selectedItem = temperature.first.unitName;
-  //       selectedItemAbbreviation = temperature.first.unitAbbreviation;
-  //       break;
-  //     case 5:
-  //       selectedItem = cooking.first.unitName;
-  //       selectedItemAbbreviation = cooking.first.unitAbbreviation;
-  //       break;
-  //   }
-  //
-  //   notifyListeners();
-  // }
+      if (controller.text == '') {
+        inputValue = 1;
+      } else {
+        inputValue = double.parse(getInputResult());
+      }
+
+      switch (selectedItem) {
+        case 'Kelvin':
+          if (unitName == 'Santigrat') {
+            inputValue = inputValue * (-272.15);
+          } else if (unitName == 'Fahrenhayt') {
+            inputValue = inputValue * (-457.87);
+          }
+          break;
+        case 'Fahrenhayt':
+          if (unitName == 'Santigrat') {
+            inputValue = inputValue * (-17.2222222);
+          } else if (unitName == 'Kelvin') {
+            inputValue = inputValue * (255.927778);
+          }
+          break;
+        default:
+          inputValue = inputValue *
+              conversionFactors[selectedItem] *
+              (1 / conversionFactors[unitName]);
+          break;
+      }
+      resultValue = inputValue.toStringAsFixed(6);
+      resultValue = resultValue.replaceAll(RegExp(r"([.]*000000)(?!.*\d)"), "");
+    } catch (e) {}
+    return resultValue;
+  }
 }

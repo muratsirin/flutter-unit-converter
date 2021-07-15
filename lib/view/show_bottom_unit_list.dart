@@ -5,10 +5,12 @@ import 'package:unit_converter/provider/conversion_data.dart';
 class ShowBottomUnitList extends StatelessWidget {
   final List<Conversion> conversion;
   final ConversionData conversionData;
+  final String selectedItem;
   const ShowBottomUnitList({
     Key? key,
     required this.conversion,
     required this.conversionData,
+    required this.selectedItem,
   }) : super(key: key);
 
   @override
@@ -35,13 +37,15 @@ class ShowBottomUnitList extends StatelessWidget {
                   fontSize: 20,
                 ),
               ),
-              // trailing: conversionItem.unitName ==
-              //         conversionData.getSelectedItem(conversion: conversion)
-              //     ? Icon(Icons.check)
-              //     : Text(''),
+              trailing: conversionItem.unitName == selectedItem
+                  ? Icon(Icons.check)
+                  : Text(''),
               onTap: () {
                 conversionData.setSelectedItem(
-                    conversionItem.unitName, conversion);
+                  unitName: conversionItem.unitName,
+                  unitAbbreviation: conversionItem.unitAbbreviation,
+                  conversion: conversion,
+                );
                 Navigator.pop(context);
               },
             );

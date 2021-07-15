@@ -5,7 +5,6 @@ import 'package:unit_converter/provider/conversion_data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,8 +30,13 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: TabBarView(
-                    children: conversionData.unitScreenList(),
+                  child: GestureDetector(
+                    child: TabBarView(
+                      children: conversionData.unitScreenList(),
+                    ),
+                    // onTap: () {
+                    //   conversionData.printIndex(controller.index);
+                    // },
                   ),
                 ),
               ],

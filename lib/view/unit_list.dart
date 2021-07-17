@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:unit_converter/model/conversion.dart';
 import 'package:unit_converter/provider/conversion_data.dart';
+import 'package:unit_converter/utils/constants.dart';
 
 class UnitList extends StatelessWidget {
   final List<Conversion> conversion;
@@ -21,28 +23,29 @@ class UnitList extends StatelessWidget {
         return ListTile(
           title: Text(
             conversionItem.unitName,
-            style: TextStyle(fontSize: 20),
+            style: kResultTextStyle,
           ),
           subtitle: Text(
             conversionItem.unitAbbreviation,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
+              color: Colors.grey,
             ),
           ),
-          trailing: Text(
+          trailing: AutoSizeText(
             conversionData.result(
               unitName: conversionItem.unitName,
               selectedItem: selectedItem,
             ),
-            style: TextStyle(
-              fontSize: 20,
-            ),
+            style: kResultTextStyle,
           ),
         );
       },
       separatorBuilder: (context, index) {
-        return Divider();
+        return Divider(
+          color: Colors.grey,
+        );
       },
       itemCount: conversion.length,
     );

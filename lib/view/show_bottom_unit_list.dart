@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unit_converter/model/conversion.dart';
 import 'package:unit_converter/provider/conversion_data.dart';
+import 'package:unit_converter/utils/constants.dart';
 
 class ShowBottomUnitList extends StatelessWidget {
   final List<Conversion> conversion;
@@ -16,8 +17,10 @@ class ShowBottomUnitList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kPrimaryColorDark,
       appBar: AppBar(
         elevation: 0,
+        backgroundColor: kPrimaryColorDark,
       ),
       body: Container(
         child: ListView.separated(
@@ -26,19 +29,21 @@ class ShowBottomUnitList extends StatelessWidget {
             return ListTile(
               title: Text(
                 conversionItem.unitName,
-                style: TextStyle(
-                  fontSize: 20,
-                ),
+                style: kResultTextStyle,
               ),
               subtitle: Text(
                 conversionItem.unitAbbreviation,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
+                  color: Colors.grey,
                 ),
               ),
               trailing: conversionItem.unitName == selectedItem
-                  ? Icon(Icons.check)
+                  ? Icon(
+                      Icons.check,
+                      color: kEqualButtonColor,
+                    )
                   : Text(''),
               onTap: () {
                 conversionData.setSelectedItem(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unit_converter/provider/conversion_data.dart';
+import 'package:unit_converter/utils/constants.dart';
 import 'package:unit_converter/view/home_screen.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class UnitConverter extends StatelessWidget {
       child: MaterialApp(
         title: 'Unit Converter',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          accentColor: kOperatorTextColor,
         ),
         home: HomeScreen(),
       ),

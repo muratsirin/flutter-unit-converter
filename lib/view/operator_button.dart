@@ -28,6 +28,9 @@ class OperatorButton extends StatelessWidget {
         shape: MaterialStateProperty.all<OutlinedBorder>(
           RoundedRectangleBorder(),
         ),
+        overlayColor: MaterialStateProperty.all<Color>(
+          Colors.grey[800]!,
+        ),
       ),
     );
   }

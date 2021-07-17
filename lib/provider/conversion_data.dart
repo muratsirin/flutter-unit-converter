@@ -35,27 +35,45 @@ class ConversionData extends ConversionButtonData with ConversionList {
 
   List<Tab> unitTopBarList = [
     Tab(
-      icon: Icon(FontAwesomeIcons.rulerHorizontal),
+      icon: Icon(
+        FontAwesomeIcons.rulerHorizontal,
+        size: 20,
+      ),
       text: 'Uzunluk',
     ),
     Tab(
-      icon: Icon(FontAwesomeIcons.chartArea),
+      icon: Icon(
+        FontAwesomeIcons.chartArea,
+        size: 20,
+      ),
       text: 'Alan',
     ),
     Tab(
-      icon: Icon(FontAwesomeIcons.weightHanging),
+      icon: Icon(
+        FontAwesomeIcons.weightHanging,
+        size: 20,
+      ),
       text: 'Kütle',
     ),
     Tab(
-      icon: Icon(FontAwesomeIcons.cube),
+      icon: Icon(
+        FontAwesomeIcons.cube,
+        size: 20,
+      ),
       text: 'Hacim',
     ),
     Tab(
-      icon: Icon(FontAwesomeIcons.temperatureHigh),
+      icon: Icon(
+        FontAwesomeIcons.temperatureHigh,
+        size: 20,
+      ),
       text: 'Sıcaklık',
     ),
     Tab(
-      icon: Icon(FontAwesomeIcons.utensils),
+      icon: Icon(
+        FontAwesomeIcons.utensils,
+        size: 20,
+      ),
       text: 'Pişirme',
     ),
   ];
@@ -156,8 +174,10 @@ class ConversionData extends ConversionButtonData with ConversionList {
               (1 / conversionFactors[unitName]);
           break;
       }
+
       resultValue = inputValue.toStringAsFixed(6);
       resultValue = resultValue.replaceAll(RegExp(r"([.]*000000)(?!.*\d)"), "");
+      resultValue = resultValue.replaceAll('.', ',');
     } catch (e) {}
     return resultValue;
   }

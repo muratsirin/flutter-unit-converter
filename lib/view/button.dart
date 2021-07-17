@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unit_converter/provider/conversion_data.dart';
+import 'package:unit_converter/utils/constants.dart';
 
 class Button extends StatelessWidget {
   final String buttonText;
@@ -26,11 +27,24 @@ class Button extends StatelessWidget {
         style: TextStyle(
           fontWeight: FontWeight.normal,
           fontSize: 24.0,
+          color: buttonText == 'OK' ? kEqualButtonColor : Colors.white,
         ),
       ),
       style: ButtonStyle(
         shape: MaterialStateProperty.all<OutlinedBorder>(
-          CircleBorder(),
+          buttonText == 'OK'
+              ? CircleBorder(
+                  side: BorderSide(
+                    color: kEqualButtonColor,
+                  ),
+                )
+              : CircleBorder(),
+        ),
+        backgroundColor: MaterialStateProperty.all<Color>(
+          kPrimaryColorDark,
+        ),
+        overlayColor: MaterialStateProperty.all<Color>(
+          Colors.grey[800]!,
         ),
       ),
     );

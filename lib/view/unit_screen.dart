@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:unit_converter/model/conversion.dart';
 import 'package:unit_converter/provider/conversion_data.dart';
+import 'package:unit_converter/utils/constants.dart';
 import 'package:unit_converter/view/numpad.dart';
 import 'package:unit_converter/view/show_bottom_unit_list.dart';
 import 'package:unit_converter/view/unit_list.dart';
@@ -41,6 +42,7 @@ class UnitScreen extends StatelessWidget {
                               selectedItem,
                               style: TextStyle(
                                 fontSize: 20,
+                                color: Colors.white,
                               ),
                             ),
                             subtitle: Text(
@@ -48,18 +50,25 @@ class UnitScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
+                                color: Colors.grey,
                               ),
                             ),
-                            trailing: Icon(Icons.unfold_more),
+                            trailing: Icon(
+                              Icons.unfold_more,
+                              color: Colors.white,
+                            ),
                             onTap: () {
                               showModalBottomSheet(
                                 context: context,
                                 isScrollControlled: true,
                                 builder: (context) {
-                                  return ShowBottomUnitList(
-                                    conversion: conversion,
-                                    conversionData: conversionData,
-                                    selectedItem: selectedItem,
+                                  return SizedBox(
+                                    height: constraints.maxHeight,
+                                    child: ShowBottomUnitList(
+                                      conversion: conversion,
+                                      conversionData: conversionData,
+                                      selectedItem: selectedItem,
+                                    ),
                                   );
                                 },
                               );
@@ -67,31 +76,32 @@ class UnitScreen extends StatelessWidget {
                           ),
                         ),
                         Expanded(
-                          child: Container(
-                            child: TextField(
-                              controller: conversionData.controller,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: null,
-                              autofocus: true,
-                              showCursor: true,
-                              readOnly: true,
-                              textAlign: TextAlign.right,
-                              onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return SizedBox(
-                                      height: constraints.maxHeight * 0.7,
-                                      child: Numpad(),
-                                    );
-                                  },
-                                ).then((value) => conversionData.thenNumpad());
-                              },
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                counterText: '',
-                                hintText: '1',
-                              ),
+                          child: TextField(
+                            controller: conversionData.controller,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            autofocus: true,
+                            showCursor: true,
+                            readOnly: true,
+                            textAlign: TextAlign.right,
+                            cursorColor: Colors.white,
+                            style: kResultTextStyle,
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return SizedBox(
+                                    height: constraints.maxHeight * 0.7,
+                                    child: Numpad(),
+                                  );
+                                },
+                              ).then((value) => conversionData.thenNumpad());
+                            },
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              counterText: '',
+                              hintText: '1',
+                              hintStyle: kResultTextStyle,
                             ),
                           ),
                         ),
@@ -101,7 +111,9 @@ class UnitScreen extends StatelessWidget {
                 ),
                 SizedBox(
                   height: constraints.maxHeight * 0.01,
-                  child: Divider(),
+                  child: Divider(
+                    color: Colors.grey,
+                  ),
                 ),
                 SizedBox(
                   height: constraints.maxHeight * 0.89,
